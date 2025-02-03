@@ -2,22 +2,26 @@ import React from "react";
 
 interface TaskFormProps {
   onAddTask: (
-    title: string
+    title: string,
+    dueDate: string
   ) => void /*----- Define a prop to handle adding tasks -----*/;
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
   const [newTaskTitle, setNewTaskTitle] = React.useState("");
+  const [dueDate, setDueDate] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); /*----- Prevent default form submission behavior -----*/
     if (newTaskTitle.trim() !== "") {
       onAddTask(
-        newTaskTitle
+        newTaskTitle,
+        dueDate
       ); /*----- Call the onAddTask function passed from App.tsx -----*/
       setNewTaskTitle(
         ""
       ); /*----- Clear the input field after adding the task -----*/
+      setDueDate("");
     }
   };
 
@@ -30,6 +34,12 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
           className="rounded-none rounded-t-md flex-grow block w-full min-w-0 border-2 border-[#2ecc71] px-3 py-2 text-white bg-[#2c3E50] focus:border-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50 sm:text-sm shadow-sm"
+        />
+        <input
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          className="border-2 border-[#2ecc71] px-3 py-2 text-white bg-[#2c3E50] focus:border-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50 sm:text-sm"
         />
         <button
           type="submit"

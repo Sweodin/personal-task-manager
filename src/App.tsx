@@ -7,11 +7,12 @@ import { Task } from "./types/Task";
 const App: React.FC = () => {
   const [tasks, setTasks] = React.useState<Task[]>([]);
 
-  const addTask = (title: string) => {
+  const addTask = (title: string, dueDate: string) => {
     const newTask: Task = {
-      id: tasks.length + 1,
+      id: Date.now(),
       title,
       completed: false,
+      dueDate /*----- Add dueDate To the new task -----*/,
     };
     setTasks([...tasks, newTask]);
   };
