@@ -3,4 +3,5 @@ export interface Task {
   title: string;
   completed: boolean;
   dueDate?: string;
+  section: string;
 }

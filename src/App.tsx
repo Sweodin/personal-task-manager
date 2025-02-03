@@ -6,46 +6,62 @@ import { Task } from "./types/Task";
 
 const App: React.FC = () => {
   const [tasks, setTasks] = React.useState<Task[]>([]);
+  const [sections, setSections] = React.useState<string[]>([
+    "Work",
+    "Personal",
+    "Shopping",
+  ]);
 
-  const addTask = (title: string, dueDate: string) => {
+  const addTask = (title: string, dueDate: string, section: string) => {
     const newTask: Task = {
       id: Date.now(),
       title,
       completed: false,
-      dueDate /*----- Add dueDate To the new task -----*/,
+      dueDate,
+      section,
     };
     setTasks([...tasks, newTask]);
   };
 
-  const toggleComplete = (id: number) => {
+  const addSection = (newSection: string) => {
+    if (!sections.includes(newSection)) {
+      setSections([...sections, newSection]);
+    }
+  };
+
+  const onToggleComplete = (taskId: number) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === taskId ? { ...task, completed: !task.completed } : task
       )
     );
   };
 
-  const deleteTask = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const onDeleteTask = (taskId: number) => {
+    setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
   return (
     <div className="min-h-screen bg-[#2c3E50]">
       <Navbar />
       <div className=" container mx-auto mt-10 px-4">
-        <h1 className="text-3xl text-[#2ecc71] font-bold mb-4 text-center pt-4">
+        <h1 className="text-3xl text-[#2ecc71] font-bold mb-8 text-center pt-4">
           My Tasks
         </h1>
-        <div className="flex justify-center ">
-          <TaskForm onAddTask={addTask} />
+        <div className="flex flex-col items-center space-y-8 ">
+          <TaskForm
+            onAddTask={addTask}
+            sections={sections}
+            onAddSection={addSection}
+          />
+          <div className="w-full max-w-4xl ">
+            <TaskList
+              tasks={tasks}
+              onToggleComplete={onToggleComplete}
+              onDeleteTask={onDeleteTask}
+            />
+          </div>
         </div>
-        <TaskList
-          tasks={tasks}
-          onToggleComplete={
-            toggleComplete
-          } /*----- Pass toggleComplete function -----*/
-          onDeleteTask={deleteTask} /*----- Pass deleteTask function -----*/
-        />
       </div>
     </div>
   );

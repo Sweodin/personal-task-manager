@@ -1,6 +1,6 @@
 import React from "react";
 import { Task } from "../types/Task";
-import { CalendarIcon } from "@heroicons/react/24/outline"; /*----- Import the calendar icon -----*/
+/* import { CalendarIcon } from "@heroicons/react/24/outline";  */ /*----- Import the calendar icon -----*/
 
 interface TaskItemProps {
   task: Task;
@@ -15,45 +15,31 @@ const TaskItem: React.FC<TaskItemProps> = ({
 }) => {
   /*----- Check if the task is overdue -----*/
 
-  const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
+  /* const isOverdue = task.dueDate && new Date(task.dueDate) < new Date(); */
   return (
-    <li className="mb-2 p-4 border-2 border-[#2ecc71] rounded shadow-md bg-[#34495E]">
-      <div className="flex items-center justify-between">
-        <div className="flex-grow">
-          <span
-            className={`${
-              task.completed ? "line-through text-gray-400" : "text-white"
-            }`}
-          >
-            {task.title}
-          </span>
-          {task.dueDate && (
-            <p
-              className={`text-sm ${
-                isOverdue ? "text-red-400" : "text-gray-300"
-              } flex items-center mt-1`}
-            >
-              <CalendarIcon className="w-4 h-4 mr-1" />
-              Due: {task.dueDate}
-            </p>
-          )}
-        </div>
-        <div className="flex space-x-2">
-          <button
-            onClick={() => onToggleComplete(task.id)}
-            className="bg-[#2ecc71] hover:bg-[#27ae60] text-white font-bold py-2 px-3 rounded focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:ring-opacity-50 text-sm"
-          >
-            {task.completed ? "Mark Incomplete" : "Mark Done"}
-          </button>
-          <button
-            onClick={() => onDeleteTask(task.id)}
-            className="bg-[#E74C3C] hover:bg-[#c0392b] text-white font-bold py-2 px-3 rounded focus:outline-none focus:ring-2 focus:ring-[#E74C3C] focus:ring-opacity-50 text-sm"
-          >
-            Delete
-          </button>
-        </div>
+    <div className="bg-[#34495E] p-4 rounded-lg shadow-md">
+      <div className="text-lg font-semibold text-[#2ecc71]">{task.section}</div>
+      <div className="text-sm text-gray-300">{task.dueDate}</div>
+      <div className="mt-2 text-white">{task.title}</div>
+      <div className="mt-4 flex space-x-2">
+        <button
+          onClick={() => onToggleComplete(task.id)}
+          className={`px-4 py-2 rounded-md ${
+            task.completed
+              ? "bg-[#27ae60] hover:bg-[#2ecc71]"
+              : "bg-[#e74c3c] hover:bg-[#c0392b]"
+          } text-white`}
+        >
+          {task.completed ? "Completed" : "Mark Complete"}
+        </button>
+        <button
+          onClick={() => onDeleteTask(task.id)}
+          className="bg-[#e74c3c] hover:bg-[#c0392b] px-4 py-2 rounded-md text-white"
+        >
+          Delete
+        </button>
       </div>
-    </li>
+    </div>
   );
 };
 
