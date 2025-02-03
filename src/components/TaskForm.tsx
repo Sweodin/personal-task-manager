@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface TaskFormProps {
   onAddTask: (
@@ -7,10 +7,10 @@ interface TaskFormProps {
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
-  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [newTaskTitle, setNewTaskTitle] = React.useState("");
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); /*----- Prevent default form submission behavior -----*/
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); /*----- Prevent default form submission behavior -----*/
     if (newTaskTitle.trim() !== "") {
       onAddTask(
         newTaskTitle
@@ -29,11 +29,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
           placeholder="Add a new task"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
-          className="rounded-none rounded-t-md flex-grow block w-full min-w-0 border border-gray-300 px-3 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 focus:ring-opacity-50 sm:text-sm"
+          className="rounded-none rounded-t-md flex-grow block w-full min-w-0 border-2 border-[#2ecc71] px-3 py-2 text-white bg-[#2c3E50] focus:border-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50 sm:text-sm shadow-sm"
         />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-none rounded-b-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 sm:text-sm"
+          className="bg-[#2ecc71] hover:bg-[#27ae60] text-white font-bold px-4 py-2 rounded-none rounded-b-md focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:ring-opacity-50 sm:text-sm"
         >
           Add Task
         </button>

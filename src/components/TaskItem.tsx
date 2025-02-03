@@ -26,13 +26,13 @@ const TaskItem: React.FC<TaskItemProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={() => onToggleComplete(task.id)}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline text-sm"
+            className="bg-[#2ecc71] hover:bg-[#27ae60] text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline text-sm"
           >
             {task.completed ? "Mark Incomplete" : "Mark Done"}
           </button>
           <button
             onClick={() => onDeleteTask(task.id)}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline text-sm"
+            className="bg-[#E74C3C] hover:bg-[#c0392b] text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline text-sm"
           >
             Delete
           </button>
