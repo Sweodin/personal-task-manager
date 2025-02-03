@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import TaskList from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
+import { Task } from "./types/Task";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const addTask = (title: string) => {
+    const newTask: Task = {
+      id: tasks.length + 1,
+      title,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+  };
+
+  const toggleComplete = (id: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container mx-auto mt-10">
+      <h1 className="text-3xl text-green-700 font-bold mb-4 text-center pt-4">
+        My Tasks
+      </h1>
+      <div className="flex justify-center ">
+        <TaskForm onAddTask={addTask} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <TaskList
+        tasks={tasks}
+        onToggleComplete={
+          toggleComplete
+        } /*----- Pass toggleComplete function -----*/
+        onDeleteTask={deleteTask} /*----- Pass deleteTask function -----*/
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
